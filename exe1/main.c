@@ -17,17 +17,17 @@ void adc_task(void *p) {
     // 12-bit conversion, assume max value == ADC_VREF == 3.3 V
     const float conversion_factor = 3.3f / (1 << 12);
 
-    uint16_t result;
+    uint16_t result_1;
+    uint16_t result_2;
     while (1) {
         adc_select_input(1); // Select ADC input 1 (GPIO27)
-        result = adc_read();
-        printf("voltage 1: %f V\n", result * conversion_factor);
+        result_1 = adc_read();
+        printf("voltage 1: %f V\n", result_1 * conversion_factor);
 
         // CÓDIGO AQUI
         adc_select_input(0);
-        uint16_t r2 = adc_read();
-        float v2 = r2 * conversion_factor;
-        printf("voltage 2: %.6f V\n", v2);
+        result_2 = adc_read();
+        printf("voltage 2: %f V\n", result_2 * conversion_factor);
 
 
         vTaskDelay(pdMS_TO_TICKS(200));
