@@ -8,7 +8,7 @@
 #include "hardware/pwm.h"
 
 const int PWM_0_PIN_R = 4;
-const int PWM_0_PIN_G = 4;
+const int PWM_0_PIN_G = 6;
 
 void led_task(void *p) {
     gpio_set_function(PWM_0_PIN_R, GPIO_FUNC_PWM);
