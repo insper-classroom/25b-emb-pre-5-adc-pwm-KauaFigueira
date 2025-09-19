@@ -25,29 +25,31 @@ void data_task(void *p) {
 
 void process_task(void *p) {
     int data = 0;
-
     int buf[5] = {0};
-    int idx = 0;
-    int filled = 0;
+    int i = 0;
+    int k = 0;
     int sum = 0;
+    int printed = 0;
 
     while (true) {
         if (xQueueReceive(xQueueData, &data, 100)) {
             // implementar filtro aqui!
-            sum -= buf[idx];
-            buf[idx] = data;
+            sum -= buf[i];
+            buf[i] = data;
             sum += data;
+            i = (i + 1) % 5;
 
-            idx++;
-            if (idx >= 5) {
-                idx = 0;
+            if (k < 5) {
+                k++;
             }
-            
-            if (filled < 5) {
-                filled++;
-            } else {
+
+            if (k == 5 && printed < 7) {
                 int y = sum / 5;
                 printf("%d \n", y);
+                printed++;
+                if (printed == 7) {
+                    vTaskSuspend(NULL);
+                }
             }
 
             // deixar esse delay!
