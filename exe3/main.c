@@ -26,12 +26,29 @@ void data_task(void *p) {
 void process_task(void *p) {
     int data = 0;
 
+    int buf[5] = {0};
+    int idx = 0;
+    int filled = 0;
+    int sum = 0;
+
     while (true) {
         if (xQueueReceive(xQueueData, &data, 100)) {
             // implementar filtro aqui!
+            sum -= buf[idx];
+            buf[idx] = data;
+            sum += data;
 
-
-
+            idx++;
+            if (idx >= 5) {
+                idx = 0;
+            }
+            
+            if (filled < 5) {
+                filled++;
+            } else {
+                int y = sum / 5;
+                printf("%d \n", y);
+            }
 
             // deixar esse delay!
             vTaskDelay(pdMS_TO_TICKS(50));
