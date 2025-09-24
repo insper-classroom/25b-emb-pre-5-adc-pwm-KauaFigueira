@@ -14,7 +14,7 @@ const int PIN_LED_B = 4;
 const int PIN_ADC = 28;
 const float conversion_factor = 3.3f / (1 << 12);
 volatile int flag_led = 0;
-repeating_timer_t timer;
+repeating_timer_t timer_led;
 
 bool timer_led_callback(repeating_timer_t *rt){
     flag_led = 1;
@@ -57,10 +57,10 @@ int main(){
         if((new_delay_ms != current_delay_ms) || first_time == true){
             current_delay_ms = new_delay_ms;
             first_time = false;
-            cancel_repeating_timer(&timer);
+            cancel_repeating_timer(&timer_led);
 
             if(current_delay_ms > 0){
-                add_repeating_timer_ms(current_delay_ms, timer_led_callback, NULL, &timer);
+                add_repeating_timer_ms(current_delay_ms, timer_led_callback, NULL, &timer_led);
             } else {
                 led_st = false;
                 gpio_put(PIN_LED_B, led_st);
