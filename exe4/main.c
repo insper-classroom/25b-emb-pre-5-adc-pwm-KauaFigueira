@@ -17,10 +17,11 @@ const float conversion_factor = 3.3f / (1 << 12);
 volatile int flag_led = 0;
 repeating_timer_t timer_led;
 
-bool timer_led_callback(repeating_timer_t *rt){
+bool timer_led_callback(repeating_timer_t *rt) {
     flag_led = 1;
     return true;
 }
+
 
 /**
  * 0..1.0V: Desligado
@@ -49,11 +50,12 @@ int main(){
 
         int new_delay_ms = 0;
 
-        if(voltage > 1.0f && voltage <= 2.0f){
-            new_delay_ms = 300;
-        } else if(voltage > 2.0f){
-            new_delay_ms = 500;
+        if (voltage > 1.0f && voltage <= 2.0f) {
+            new_delay_ms = 150;
+        } else if (voltage > 2.0f) {
+            new_delay_ms = 400;
         }
+
 
         if((new_delay_ms != current_delay_ms) || first_time == true){
             current_delay_ms = new_delay_ms;
