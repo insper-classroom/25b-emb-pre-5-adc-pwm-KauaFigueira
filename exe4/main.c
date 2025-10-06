@@ -21,6 +21,7 @@ bool timer_led_callback(repeating_timer_t *rt) {
  * 1..2.0V: 150 ms
  * 2..3.3V: 400 ms
 */
+/*feito*/
 
 int main() {
     stdio_init_all();
